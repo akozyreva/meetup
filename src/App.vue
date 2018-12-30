@@ -2,11 +2,14 @@
   <v-app dark>
     <v-navigation-drawer temporary fixed v-model="sideNav">
       <v-list>
-        <v-list-tile>
-          <v-list-tile-action>
-            <v-icon>trending_up</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>View Meetups</v-list-tile-content>
+        <!-- feature of vuetify for routing -->
+        <v-list-tile v-for="item in menuItems" :key="item.title"
+        router
+        :to="item.link">
+            <v-list-tile-action>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>{{ item.title }}</v-list-tile-content>
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
@@ -15,15 +18,24 @@
               @click.stop="sideNav = !sideNav"
               class="hidden-md-and-up"
       ></v-toolbar-side-icon>
-      <v-toolbar-title>DevMeetup</v-toolbar-title>
+      <v-toolbar-title>
+        <router-link to="/" tag="span" style="cursor: pointer">DevMeetup</router-link>
+        </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-toolbar-items class="hidden-xs-only">
-        <v-btn flat>
-          <v-icon left>trending_up</v-icon>
-          View Meetups</v-btn>
+      <v-toolbar-items class="hidden-xs-only"  v-for="item in menuItems"
+                       :key="item.title">
+        <router-link :to="item.link" tag="span" style="cursor: pointer">
+          <v-btn flat>
+            <v-icon left>{{ item.icon }}</v-icon>
+            {{ item.title }}
+          </v-btn>
+        </router-link>
+
       </v-toolbar-items>
     </v-toolbar>
-    <main></main>
+    <main>
+      <router-view></router-view>
+    </main>
   </v-app>
 </template>
 
@@ -35,7 +47,35 @@ export default {
   },
   data () {
     return {
-      sideNav: false
+      sideNav: false,
+      menuItems: [
+        {
+          icon: 'trending_up',
+          title: 'View Meetups',
+          link: '/meetups'
+        },
+        {
+          icon: 'group_add',
+          title: 'Organize Meetup',
+          link: '/meetup/new'
+        },
+        {
+          icon: 'person',
+          title: 'Profile',
+          link: '/profile'
+        },
+        {
+          icon: 'face',
+          title: 'Sign up',
+          link: '/signup'
+        },
+
+        {
+          icon: 'lock_open',
+          title: 'Sign in',
+          link: '/signin'
+        }
+      ]
     }
   }
 }
