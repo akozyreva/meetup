@@ -11,9 +11,9 @@
                             height="400px"
                     ></v-img>
                     <v-card-text>
-                        <div>{{ getLoadedOneMeetup(id).date }}</div>
+                        <div>{{ getLoadedOneMeetup(id).date }} - {{ getLoadedOneMeetup(id).location }}</div>
                         <div>
-                            lorem ipsumCannabis raptus calcaria est.Ionic cannon at the cosmos was the ellipse of powerdrain, yearned to an evasive machine.
+                           {{ getLoadedOneMeetup(id).description }}
                         </div>
                     </v-card-text>
                     <v-card-actions>

@@ -56,11 +56,25 @@
                         </v-flex>
                     </v-layout>
                     <v-layout>
-                        <v-flex xs12 sm6 offset-sm3>
+                        <v-flex xs6 sm6 offset-sm3>
                             <img :src="imageUrl" height="200px">
                         </v-flex>
                     </v-layout>
-                    <v-layout row>
+                    <v-layout row class="mb-10">
+                        <v-flex xs5 sm6  offset-sm2>
+                            <h3 class="mb-3">Choose a Date</h3>
+                            <v-date-picker v-model="date">
+                            </v-date-picker>
+                        </v-flex>
+                        <v-flex xs5 sm6>
+                            <h3 class="mb-3">Choose Time</h3>
+                            <v-time-picker
+                                    v-model="time"
+                            >
+                            </v-time-picker>
+                        </v-flex>
+                    </v-layout>
+                    <v-layout row class="mb-10">
                         <v-flex xs12 sm6 offset-sm5>
                             <v-btn :disabled="!formIsValid"
                             type="submit"
@@ -74,6 +88,7 @@
 </template>
 
 <script>
+    import moment from 'moment'
     export default {
         name: "CreateMeetup",
         data() {
@@ -81,8 +96,17 @@
                title: '',
                location: '',
                description: '',
-               imageUrl: ''
+               imageUrl: '',
+               date: '',
+               time: ''
            }
+        },
+        created: function () {
+            // return current datetime
+            const dateTime = moment();
+            //console.log(dateTime.format());
+            this.date = dateTime.format('YYYY-MM-DD');
+            this.time = dateTime.format('HH:mm');
         },
         computed: {
             formIsValid () {
@@ -103,7 +127,7 @@
                     location: this.location,
                     description: this.description,
                     imageUrl: this.imageUrl,
-                    date: new Date()
+                    date: `${this.date} ${this.time}`
                 }
                 this.$store.dispatch('createMeetup', meetUpData)
                 this.$router.push('/meetups')
