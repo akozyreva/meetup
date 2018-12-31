@@ -4,14 +4,14 @@
             <v-flex xs12>
                 <v-card>
                     <v-card-title>
-                        <h2>My Meetup</h2>
+                        <h2>{{ getLoadedOneMeetup(id).title }}</h2>
                     </v-card-title>
                     <v-img
-                            src="https://cdn.vuetifyjs.com/images/cards/foster.jpg"
+                            :src="getLoadedOneMeetup(id).imageUrl"
                             height="400px"
                     ></v-img>
                     <v-card-text>
-                        <div>17th July 2019</div>
+                        <div>{{ getLoadedOneMeetup(id).date }}</div>
                         <div>
                             lorem ipsumCannabis raptus calcaria est.Ionic cannon at the cosmos was the ellipse of powerdrain, yearned to an evasive machine.
                         </div>
@@ -28,8 +28,16 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex'
     export default {
-        name: "MeetupPage"
+        name: "MeetupPage",
+        props: ['id'],
+        computed: {
+            // mix the getters into computed with object spread operator
+            ...mapGetters([
+                'getLoadedOneMeetup'
+            ])
+        }
     }
 </script>
 

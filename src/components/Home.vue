@@ -14,7 +14,7 @@
                    <v-carousel-item
                            :key="i"
                            :src="item.imageUrl"
-                           v-for="(item,i) in meetups"
+                           v-for="(item,i) in getFeaturedMeetaps"
                            @click.native="onLoadMeetup(item.id)"
                    >
                        <div class="title">
@@ -33,26 +33,17 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex'
     export default {
-        data () {
-            return {
-                meetups: [
-                    {
-                        imageUrl: 'https://www.history.com/.image/t_share/MTU3ODc5MDgyNjY5OTc1MjYz/new-york-city.jpg',
-                        id: '1',
-                        title:'Meetup in New York'
-                    },
-                    {
-                        imageUrl: 'https://boston-consulting-group-res.cloudinary.com/image/fetch/http://image-src.bcg.com/Images/Moscow_1050x590_tcm-33802.jpg',
-                        id: '2',
-                        title:'Meetup in Moscow'
-                    }
-                ]
-            }
+        computed: {
+            // mix the getters into computed with object spread operator
+            ...mapGetters([
+                'getFeaturedMeetaps'
+            ])
         },
         methods: {
             onLoadMeetup(id) {
-                this.$router.push('/meetups/:'+ id)
+                this.$router.push(`/meetups/:${id}`)
             }
         }
     }

@@ -3,10 +3,12 @@ import './plugins/vuetify'
 import App from './App.vue'
 import Vuetify from 'vuetify'
 import router from './router/index.js'
+import {store} from './store/index.js'
 
 Vue.config.productionTip = false
 new Vue({
   router,
+  store,
   render: h => h(App),
 }).$mount('#app')
 

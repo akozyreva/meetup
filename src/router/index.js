@@ -40,6 +40,8 @@ export default new VueRouter ({
         {
             path: '/meetups/:id',
             name: 'MeetupPage',
+            // in order to send the id parameter
+            props: true,
             component: MeetupPage
         },
         {
