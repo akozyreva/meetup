@@ -10,11 +10,12 @@
        </v-layout>
        <v-layout row wrap class="mt-2">
            <v-flex xs12>
-               <v-carousel>
+               <v-carousel style="cursor: pointer">
                    <v-carousel-item
                            :key="i"
                            :src="item.imageUrl"
                            v-for="(item,i) in meetups"
+                           @click.native="onLoadMeetup(item.id)"
                    >
                        <div class="title">
                            {{ item.title }}
@@ -38,15 +39,20 @@
                 meetups: [
                     {
                         imageUrl: 'https://www.history.com/.image/t_share/MTU3ODc5MDgyNjY5OTc1MjYz/new-york-city.jpg',
-                        id: 1,
+                        id: '1',
                         title:'Meetup in New York'
                     },
                     {
                         imageUrl: 'https://boston-consulting-group-res.cloudinary.com/image/fetch/http://image-src.bcg.com/Images/Moscow_1050x590_tcm-33802.jpg',
-                        id: 1,
+                        id: '2',
                         title:'Meetup in Moscow'
                     }
                 ]
+            }
+        },
+        methods: {
+            onLoadMeetup(id) {
+                this.$router.push('/meetups/:'+ id)
             }
         }
     }
