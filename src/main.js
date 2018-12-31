@@ -4,6 +4,7 @@ import App from './App.vue'
 import Vuetify from 'vuetify'
 import router from './router/index.js'
 import {store} from './store/index.js'
+import firebase from 'firebase'
 
 Vue.config.productionTip = false
 new Vue({
@@ -25,3 +26,12 @@ Vue.use(Vuetify, {
   }
 })
 
+var config = {
+  apiKey: "AIzaSyBS3QCJTabW3T3Chl76opbOehWWL7PoW-o",
+  authDomain: "meetup-136a5.firebaseapp.com",
+  databaseURL: "https://meetup-136a5.firebaseio.com",
+  projectId: "meetup-136a5",
+  storageBucket: "meetup-136a5.appspot.com",
+  messagingSenderId: "244766742152"
+};
+firebase.initializeApp(config);
