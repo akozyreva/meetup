@@ -5,7 +5,7 @@
                 <v-card>
                     <v-card-text>
                         <v-container>
-                            <form>
+                            <form @submit.prevent="onSignUp">
                                 <v-layout row>
                                     <v-flex xs12>
                                         <v-text-field
@@ -57,23 +57,36 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex'
     export default {
         name: "SignUp",
-        data () {
-            return {
+        data: () =>  ({
                 email: '',
                 password: '',
                 confirmPassword: ''
-            }
-        },
+        }),
         computed: {
             changePassword: function () {
                 return this.password !== this.confirmPassword ? 'Passwords do not match':true
+            },
+            ...mapGetters([
+                'getUserOnPage'
+            ])
+        },
+        watch: {
+            getUserOnPage(val) {
+                if (val !== null || val !== undefined) {
+                    this.$router.push('/');
+                }
             }
+
         },
         methods: {
             onSignUp() {
-
+                this.$store.dispatch('signUserUp', {
+                    email: this.email,
+                    password: this.password
+                })
             }
         }
     }

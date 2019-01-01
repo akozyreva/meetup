@@ -91,16 +91,14 @@
     import moment from 'moment'
     export default {
         name: "CreateMeetup",
-        data() {
-           return {
+        data: () => ({
                title: '',
                location: '',
                description: '',
                imageUrl: '',
                date: '',
                time: ''
-           }
-        },
+        }),
         created: function () {
             // return current datetime
             const dateTime = moment();
