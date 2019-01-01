@@ -1,0 +1,6 @@
+Firebase
+you need to install Firebase
+npm i --sabe firebase
+and add in main.js file
+import firebase from 'firebase'
+and add the config
