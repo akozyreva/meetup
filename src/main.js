@@ -5,6 +5,11 @@ import Vuetify from 'vuetify'
 import router from './router/index.js'
 import {store} from './store/index.js'
 import * as firebase from 'firebase'
+import AlertCmp from './components/Shared/Alert.vue'
+import Btn from './components/Shared/Btn.vue'
+
+Vue.component('app-alert', AlertCmp);
+Vue.component('app-btn', Btn);
 
 Vue.config.productionTip = false
 new Vue({

@@ -1,5 +1,10 @@
 <template>
     <v-container>
+        <v-layout row v-if="error !== null">
+            <v-flex xs12 sm6 offset-sm3>
+                <app-alert @dismissed="onDismissed" :text="error.message"></app-alert>
+            </v-flex>
+        </v-layout>
         <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
                 <v-card>
@@ -32,7 +37,7 @@
                                 </v-layout>
                                 <v-layout>
                                     <v-flex xs12>
-                                        <v-btn type="submit">Sign in</v-btn>
+                                        <app-btn text="Sign In"></app-btn>
                                     </v-flex>
                                 </v-layout>
                             </form>
@@ -56,7 +61,10 @@
         computed: {
             ...mapGetters([
                 'getUserOnPage'
-            ])
+            ]),
+            error () {
+                return this.$store.getters.getError
+            }
         },
         watch: {
             getUserOnPage(val) {
@@ -72,6 +80,10 @@
                     email: this.email,
                     password: this.password
                 })
+            },
+            onDismissed() {
+                // once we close alert, error will be clear
+                this.$store.dispatch('clearError')
             }
         }
     }
