@@ -11,7 +11,7 @@ export const loadMeetups = ({commit}) => {
                 const obj = data.val();
                 Object.keys(obj).forEach(key => {
                     //console.log(key, obj[key]);
-                    meetups.push(obj[key]);
+                    meetups.push({...obj[key], id: key});
                 });
                 commit('setLoading', false);
                 commit('setLoadedMeetups', meetups)
@@ -93,6 +93,11 @@ export const signUserIn = ({commit}, payload) => {
             commit('setError', err);
         })
 };
+
+export const autoSignIn = ({commit}, payload) => {
+    commit('setUser', {id: payload.uid, registeredMeetups: []})
+};
+
 export const clearError = ({commit}) => {
     commit('clearError');
 };
