@@ -5,7 +5,7 @@ export const getLoadedMeetups = state => {
     })
 };
 export const getFeaturedMeetaps = (state, getters) => {
-    return getters.getLoadedMeetups.slice(0,5)
+    return getters.getLoadedMeetups.slice(0,10)
 };
 export const getLoadedOneMeetup = state => {
     return (meetUpId) => {

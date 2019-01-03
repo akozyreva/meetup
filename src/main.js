@@ -7,6 +7,7 @@ import {store} from './store/index.js'
 import * as firebase from 'firebase'
 import AlertCmp from './components/Shared/Alert.vue'
 import Btn from './components/Shared/Btn.vue'
+import {loadMeetups} from "./store/actions";
 
 Vue.component('app-alert', AlertCmp);
 Vue.component('app-btn', Btn);
@@ -24,6 +25,8 @@ new Vue({
       projectId: 'meetup-136a5',
       storageBucket: 'meetup-136a5.appspot.com'
     })
+    // load meetups from db
+    this.$store.dispatch('loadMeetups')
   }
 }).$mount('#app');
 

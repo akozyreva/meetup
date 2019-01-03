@@ -125,7 +125,8 @@
                     location: this.location,
                     description: this.description,
                     imageUrl: this.imageUrl,
-                    date: `${this.date} ${this.time}`
+                    date: `${this.date} ${this.time}`,
+                    uid: this.$store.getters.getUserOnPage.id
                 }
                 this.$store.dispatch('createMeetup', meetUpData)
                 this.$router.push('/meetups')

@@ -15,3 +15,6 @@ export const setError = (state, payload) => {
 export const clearError = (state) => {
     state.error = null
 };
+ export const setLoadedMeetups = (state, payload) => {
+     state.loadedMeetups = payload
+ }
