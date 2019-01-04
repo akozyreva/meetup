@@ -33,13 +33,12 @@
                     </v-layout>
                     <v-layout>
                         <v-flex xs12 sm6 offset-sm3>
-                            <v-text-field
-                                    name="imageUrl"
-                                    label="ImageUrl"
-                                    v-model="imageUrl"
-                                    id="image-url"
-                                    :rules="['Required']"
-                            ></v-text-field>
+                          <!--  <input type="file">-->
+                            <upload-btn
+                                    :fileChangedCallback="fileChanged"
+                                    color="blue-grey darken-2"
+                                    class="upload_btn"
+                            ></upload-btn>
                         </v-flex>
                     </v-layout>
                     <v-layout>
@@ -89,8 +88,13 @@
 
 <script>
     import moment from 'moment'
+    import UploadButton from 'vuetify-upload-button';
     export default {
+
         name: "CreateMeetup",
+        components: {
+            'upload-btn': UploadButton
+        },
         data: () => ({
                title: '',
                location: '',
@@ -115,6 +119,9 @@
             }
         },
         methods: {
+            fileChanged (file) {
+                console.log(file)
+            },
             onCreateMeetup() {
                 // additional check for from validation
                 if (!this.formIsValid) {
@@ -135,5 +142,8 @@
     }
 </script>
 
-<style scoped>
+<style scoped lang="stylus">
+    .upload_btn
+        padding 0
+        margin 0
 </style>
