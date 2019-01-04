@@ -97,7 +97,10 @@ export const signUserIn = ({commit}, payload) => {
 export const autoSignIn = ({commit}, payload) => {
     commit('setUser', {id: payload.uid, registeredMeetups: []})
 };
-
+export const logout = ({commit}) => {
+    firebase.auth().signOut();
+    commit('setUser', null);
+};
 export const clearError = ({commit}) => {
     commit('clearError');
 };

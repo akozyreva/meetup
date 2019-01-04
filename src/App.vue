@@ -30,10 +30,7 @@
         <router-link to="/" tag="span" style="cursor: pointer">DevMeetup</router-link>
         </v-toolbar-title>
       <v-spacer></v-spacer>
-        <v-btn class="hidden-xs-only log_out_btn" large @click="LogOut" v-if="userIsAuthenticated">
-          <v-icon dark left>arrow_back</v-icon>
-          Log Out
-        </v-btn>
+
       <v-toolbar-items class="hidden-xs-only"  v-for="item in menuItems"
                        :key="item.title">
           <v-btn flat router :to="item.link" tag="span" style="cursor: pointer">
@@ -41,6 +38,10 @@
             {{ item.title }}
           </v-btn>
       </v-toolbar-items>
+      <v-btn class="hidden-xs-only log_out_btn" large @click="LogOut" v-if="userIsAuthenticated">
+        <v-icon dark left>arrow_back</v-icon>
+        Log Out
+      </v-btn>
     </v-toolbar>
     <main>
       <router-view></router-view>
@@ -77,7 +78,7 @@ export default {
   },
   methods: {
     LogOut() {
-      console.log(222)
+      this.$store.dispatch('logout');
     }
   }
 }
