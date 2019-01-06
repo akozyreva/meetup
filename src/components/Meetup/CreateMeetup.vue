@@ -33,12 +33,18 @@
                     </v-layout>
                     <v-layout>
                         <v-flex xs12 sm6 offset-sm3>
-                          <!--  <input type="file">-->
+                          <!--  vidget for adding images -->
                             <upload-btn
                                     :fileChangedCallback="fileChanged"
                                     color="blue-grey darken-2"
                                     class="upload_btn"
+                                    accept="image/*"
                             ></upload-btn>
+                        </v-flex>
+                    </v-layout>
+                    <v-layout>
+                        <v-flex xs6 sm6 offset-sm3>
+                            <img :src="imageUrl" height="200px">
                         </v-flex>
                     </v-layout>
                     <v-layout>
@@ -52,11 +58,6 @@
                                 rows="8"
                                 >
                             </v-textarea>
-                        </v-flex>
-                    </v-layout>
-                    <v-layout>
-                        <v-flex xs6 sm6 offset-sm3>
-                            <img :src="imageUrl" height="200px">
                         </v-flex>
                     </v-layout>
                     <v-layout row class="mb-10">
@@ -101,7 +102,9 @@
                description: '',
                imageUrl: '',
                date: '',
-               time: ''
+               time: '',
+               image: ''
+
         }),
         created: function () {
             // return current datetime
@@ -115,12 +118,15 @@
                 return this.title !== '' &&
                     this.location !== '' &&
                     this.description !== '' &&
-                    this.imageUrl !== ''
+                    this.image !== ''
             }
         },
         methods: {
             fileChanged (file) {
-                console.log(file)
+                //console.log(file.name)
+                this.image = file;
+                this.imageUrl = URL.createObjectURL(file);
+
             },
             onCreateMeetup() {
                 // additional check for from validation
@@ -131,11 +137,11 @@
                     title: this.title,
                     location: this.location,
                     description: this.description,
-                    imageUrl: this.imageUrl,
+                    image: this.image,
                     date: `${this.date} ${this.time}`,
                     uid: this.$store.getters.getUserOnPage.id
-                }
-                this.$store.dispatch('createMeetup', meetUpData)
+                };
+                this.$store.dispatch('createMeetup', meetUpData);
                 this.$router.push('/meetups')
             }
         }

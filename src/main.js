@@ -25,7 +25,7 @@ new Vue({
       authDomain: 'meetup-136a5.firebaseapp.com',
       databaseURL: 'https://meetup-136a5.firebaseio.com',
       projectId: 'meetup-136a5',
-      storageBucket: 'meetup-136a5.appspot.com'
+      storageBucket: 'gs://meetup-136a5.appspot.com'
     });
     // load meetups from db
     this.$store.dispatch('loadMeetups');
