@@ -1,5 +1,4 @@
 import * as firebase from 'firebase'
-import * as getters from './getters'
 
 export const loadMeetups = ({commit}) => {
     commit('setLoading', true);
@@ -21,12 +20,12 @@ export const loadMeetups = ({commit}) => {
         .catch(
             err => {
                 commit('setLoading', true);
-                console.log(err);
+                alert(err);
             }
         )
 };
 
-export const createMeetup = ({commit, getters}, payload) => {
+export const createMeetup = ({commit}, payload) => {
     const meetup = {
         title: payload.title,
         location: payload.location,
@@ -34,48 +33,43 @@ export const createMeetup = ({commit, getters}, payload) => {
         date: payload.date,
         uid: payload.uid
     };
-    let key;
-    let imageUrl;
-    // ref('meetups') -name of node, in wich we wil collect data about meetups
-    firebase.database().ref('meetups').push(meetup)
-        .then(
-            data => {
-                // special param from firebase, which provides to receive id
-                const key = data.key;
-                commit('SaveKey', key);
-                return key
-            }
-        )
-        //in order to receive key, we call another then
-        .then( key => {
-            const fileName = payload.image.name
-            const extension = fileName.slice(fileName.lastIndexOf('.'))
-            return firebase.storage().ref('meetup/' + key  + extension).put(payload.image);
-        })
-        .then(uploadTaskSnapshot => {
-            return uploadTaskSnapshot.ref.getDownloadURL();
-        })
-        .then( url => {
-            let key = getters.tmpMeetupKey;
-            commit('tmpImgUrl', url);
-            // add imageUrl to info about meetup
-            return firebase.database().ref('meetups').child(key).update({imageUrl: url})
-        })
-        .then( () => {
-            //execute getters
-            let key = getters.tmpMeetupKey;
-            let imageUrl = getters.tmpImgUrl;
-            commit('createMeetup', {
-                    ...meetup,
-                    imageUrl: imageUrl,
+    async function PostMeetup(meetupData) {
+        let promise = firebase.database().ref('meetups').push(meetup)
+            .then(
+                data => {
+                    // special param from firebase, which provides to receive id
+                    const key = data.key;
+                    commit('SaveKey', key);
+                    return key
+                }
+            )
+        let key = await promise;
+        const fileName = payload.image.name
+        const extension = fileName.slice(fileName.lastIndexOf('.'));
+
+        let promiseUploadImg = firebase.storage().ref('meetup/' + key  + extension).put(payload.image)
+                .then (uploadTaskSnapshot => {
+                return uploadTaskSnapshot.ref.getDownloadURL()
+            } );
+        let url = await promiseUploadImg;
+
+        let promiseUpdateMeetup = firebase.database().ref('meetups').child(key).update({imageUrl: url})
+            .then( () => {
+                commit('createMeetup', {
+                    ...meetupData,
+                    imageUrl: url,
                     id: key
                 })
-        } )
-        .catch(
-            err => {
-                console.log(err);
-            }
-        )
+            } )
+            .catch(
+                err => {
+                    alert(err);
+                }
+            );
+        await promiseUpdateMeetup;
+
+    }
+    PostMeetup(meetup)
 
 };
 export const signUserUp = ({commit}, payload) => {

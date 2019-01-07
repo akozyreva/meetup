@@ -12,10 +12,7 @@ export const store = new Vuex.Store({
         loadedMeetups: [],
         user: null,
         loading: false,
-        error: null,
-        ImgKey: '',
-        tmpImgUrl: ''
-
+        error: null
     },
     mutations,
     actions,

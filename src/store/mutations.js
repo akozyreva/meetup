@@ -17,12 +17,4 @@ export const clearError = (state) => {
 };
  export const setLoadedMeetups = (state, payload) => {
      state.loadedMeetups = payload
- }
-
-export const SaveKey= (state, payload) => {
-    state.ImgKey = payload
-}
-
-export const tmpImgUrl = (state, payload) => {
-     state.tmpImgUrl = payload
-}
+ };

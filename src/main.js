@@ -7,7 +7,6 @@ import {store} from './store/index.js'
 import * as firebase from 'firebase'
 import AlertCmp from './components/Shared/Alert.vue'
 import Btn from './components/Shared/Btn.vue'
-import {loadMeetups} from "./store/actions";
 import UploadButton from 'vuetify-upload-button';
 
 Vue.component('app-alert', AlertCmp);

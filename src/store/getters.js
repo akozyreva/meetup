@@ -27,10 +27,3 @@ export const getLoading = state => {
 export const getError = state => {
     return state.error
 };
-export const tmpMeetupKey = state => {
-    return state.ImgKey
-};
-
-export const tmpImgUrl = state => {
-    return state.tmpImgUrl
-};
