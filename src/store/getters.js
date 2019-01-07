@@ -1,4 +1,3 @@
-import {TmpImgUrl} from "./mutations";
 
 export const getLoadedMeetups = state => {
     return state.loadedMeetups.sort((meetupA, meetupB) => {

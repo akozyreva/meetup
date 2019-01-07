@@ -7,10 +7,12 @@ import {store} from './store/index.js'
 import * as firebase from 'firebase'
 import AlertCmp from './components/Shared/Alert.vue'
 import Btn from './components/Shared/Btn.vue'
+import EditMeetupDetailsDialog from './components/Meetup/Edit/EditMeetupDetailsDialog.vue'
 import UploadButton from 'vuetify-upload-button';
 
 Vue.component('app-alert', AlertCmp);
 Vue.component('app-btn', Btn);
+Vue.component('app-edit-meetup-details-dialog', EditMeetupDetailsDialog);
 Vue.use(UploadButton);
 
 Vue.config.productionTip = false

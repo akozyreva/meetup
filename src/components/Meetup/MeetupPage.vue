@@ -5,6 +5,11 @@
                 <v-card>
                     <v-card-title>
                         <h2>{{ getLoadedOneMeetup(id).title }}</h2>
+                        <template v-if="true">
+                            <v-spacer>
+                                <app-edit-meetup-details-dialog></app-edit-meetup-details-dialog>
+                            </v-spacer>
+                        </template>
                     </v-card-title>
                     <v-img
                             :src="getLoadedOneMeetup(id).imageUrl"
@@ -36,7 +41,10 @@
             // mix the getters into computed with object spread operator
             ...mapGetters([
                 'getLoadedOneMeetup'
-            ])
+            ]),
+            userIsAuthenticated() {
+                return undefined;
+            }
         }
     }
 </script>
