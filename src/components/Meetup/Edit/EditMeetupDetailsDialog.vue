@@ -1,5 +1,5 @@
 <template>
-    <v-dialog width="350px" persistent v-model="editDialog">
+    <v-dialog width="600px"  v-model="editDialog" dark>
         <!-- btn for opening dialog -->
         <v-btn fab accent slot="activator">
             <v-icon>edit</v-icon>
@@ -13,7 +13,7 @@
                 </v-layout>
                 <v-divider></v-divider>
                 <v-layout row wrap>
-                    <v-flex xs12>
+                    <v-flex xs16>
                         <v-card-text>
                             <v-text-field
                                     name="title"
@@ -33,6 +33,25 @@
                             </v-textarea>
                         </v-card-text>
                     </v-flex>
+                    <v-layout row wrap>
+                        <v-flex xs1 sm6>
+                            <h3 class="mb-3">Choose a Date</h3>
+                            <v-date-picker
+                                    width="200"
+                                    reactive
+                                    v-model="editedDate">
+                            </v-date-picker>
+                        </v-flex>
+                        <v-flex xs1 sm6>
+                            <h3 class="mb-3">Choose Time</h3>
+                            <v-time-picker
+                                    width="200"
+                                    v-model="editedTime"
+                                    value="hh:mm"
+                            >
+                            </v-time-picker>
+                        </v-flex>
+                    </v-layout>
                 </v-layout>
                     <v-layout row wrap>
                         <v-flex xs12>
@@ -40,7 +59,8 @@
                                 <v-btn flat @click="editDialog=false">Close</v-btn>
                                 <v-btn flat
                                        @click="onSaveChanges" :disabled="(editedTitle.trim() === '' || editedDescription.trim() === '')
-                                       || (editedTitle === this.meetup.title && editedDescription === this.meetup.description)"
+                                       || (editedTitle === this.meetup.title && editedDescription === this.meetup.description &&
+                                       editedDate === this.meetup.date.slice(0,10) && editedTime === this.meetup.date.slice(10,16))"
                                 >Save</v-btn>
                             </v-card-actions>
                         </v-flex>
@@ -59,16 +79,23 @@
                 // by activator editDialog will be true initially
                 editDialog: false,
                 editedTitle: this.meetup.title,
-                editedDescription: this.meetup.description
+                editedDescription: this.meetup.description,
+                editedDate: '',
+                editedTime: ''
             }
         },
+        created: function() {
+            this.editedTime = this.meetup.date.slice(10,17);
+            this.editedDate = this.meetup.date.slice(0,10)
+        } ,
         methods: {
             onSaveChanges() {
                 this.editDialog = false;
                 const updateData= {
                     id: this.meetup.id,
                     title: this.editedTitle,
-                    description: this.editedDescription
+                    description: this.editedDescription,
+                    date: `${this.editedDate.trim()} ${this.editedTime.trim()}`
                 };
                 Object.keys(updateData).forEach( key => {
                    if (key !== 'id' && updateData[key] === this.meetup[key]) {

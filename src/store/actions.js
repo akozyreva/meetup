@@ -39,7 +39,6 @@ export const createMeetup = ({commit}, payload) => {
                 data => {
                     // special param from firebase, which provides to receive id
                     const key = data.key;
-                    commit('SaveKey', key);
                     return key
                 }
             )
@@ -74,7 +73,7 @@ export const createMeetup = ({commit}, payload) => {
 };
 export const updateMeetupData = ( {commit}, payload) => {
     commit('setLoading', true)
-    // receive new Object, exclude id, so, new object will be without id
+    // receive new Object, exclude id, so, new object will be without id - new syntax!
     const { id, ...updateObj } = payload;
     firebase.database().ref('meetups').child(payload.id).update(updateObj)
         .then( () => {
