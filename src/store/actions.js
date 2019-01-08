@@ -1,5 +1,29 @@
 import * as firebase from 'firebase'
 
+export const registerUserForMeetup = ({commit, getters}, payload) => {
+    commit('setLoading', true);
+    const user = getters.getUserOnPage
+    firebase.database().ref('/users/' + user.id).child('/registration/').push(payload)
+        .then( key => {
+            console.log(key.key, payload)
+            commit('setLoading', false);
+
+            commit('registerUserForMeetup', {
+                id: payload,
+                fbKey: key.key
+            })
+        })
+        .catch( err =>{
+            alert(err);
+            commit('setLoading', false);
+        })
+
+};
+
+export const unregisterUserForMeetup= ({commit}, payload) => {
+
+};
+
 export const loadMeetups = ({commit}) => {
     commit('setLoading', true);
     // when page reloads, recieve new meetups

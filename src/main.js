@@ -9,12 +9,14 @@ import AlertCmp from './components/Shared/Alert.vue'
 import Btn from './components/Shared/Btn.vue'
 import Loader from './components/Shared/Loader.vue'
 import EditMeetupDetailsDialog from './components/Meetup/Edit/EditMeetupDetailsDialog.vue'
+import RegisterDialog from './components/Meetup/Registration/RegisterDialog.vue'
 import UploadButton from 'vuetify-upload-button';
 
 
 Vue.component('app-alert', AlertCmp);
 Vue.component('app-btn', Btn);
 Vue.component('app-loader', Loader);
+Vue.component('app-register-dialog', RegisterDialog);
 Vue.component('app-edit-meetup-details-dialog', EditMeetupDetailsDialog);
 Vue.use(UploadButton);
 

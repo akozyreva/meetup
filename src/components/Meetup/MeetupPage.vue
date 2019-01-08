@@ -25,7 +25,7 @@
                     <v-card-actions>
                         <!-- add space in order to put btn right -->
                         <v-spacer></v-spacer>
-                        <v-btn>Register</v-btn>
+                       <app-register-dialog :meetupId="id"></app-register-dialog>
                     </v-card-actions>
                 </v-card>
             </v-flex>

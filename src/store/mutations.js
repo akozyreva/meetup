@@ -35,4 +35,13 @@ export const clearError = (state) => {
      state.loadedMeetups = payload
  };
 
+export const registerUserForMeetup = (state, payload) => {
+    const id = payload.id;
+    state.user.registeredMeetups.push(id);
+    // create and obj fbKeys and add key-value pair if of table and id of meetup
+    state.user.fbKeys[id] = payload.fbKey;
+};
 
+export const unregisterUserForMeetup = (state, payload) => {
+
+};
