@@ -72,6 +72,18 @@ export const createMeetup = ({commit}, payload) => {
     PostMeetup(meetup)
 
 };
+export const updateMeetupData = ( {commit}, payload) => {
+    commit('setLoading', true)
+    // receive new Object, exclude id, so, new object will be without id
+    const { id, ...updateObj } = payload;
+    firebase.database().ref('meetups').child(payload.id).update(updateObj)
+        .then( () => {
+            commit('setLoading', false)
+            commit('updateMeetup', payload)
+        }).catch( err => {alert(err);  commit('setLoading', false) })
+
+};
+
 export const signUserUp = ({commit}, payload) => {
     commit('setLoading', true);
     commit('clearError');
