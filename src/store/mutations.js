@@ -37,11 +37,14 @@ export const clearError = (state) => {
 
 export const registerUserForMeetup = (state, payload) => {
     const id = payload.id;
-    state.user.registeredMeetups.push(id);
-    // create and obj fbKeys and add key-value pair if of table and id of meetup
-    state.user.fbKeys[id] = payload.fbKey;
+    state.user.registeredMeetups.push({
+        id,
+        fbKey: payload.fbKey
+    });
 };
 
 export const unregisterUserForMeetup = (state, payload) => {
-
+    const registeredMeetups = state.user.registeredMeetups;
+    const index = registeredMeetups.findIndex(meetup => meetup.id === payload)
+    state.user.registeredMeetups.splice(index, 1);
 };

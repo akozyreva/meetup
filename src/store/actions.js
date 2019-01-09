@@ -5,7 +5,6 @@ export const registerUserForMeetup = ({commit, getters}, payload) => {
     const user = getters.getUserOnPage
     firebase.database().ref('/users/' + user.id).child('/registration/').push(payload)
         .then( key => {
-            console.log(key.key, payload)
             commit('setLoading', false);
 
             commit('registerUserForMeetup', {
@@ -14,15 +13,27 @@ export const registerUserForMeetup = ({commit, getters}, payload) => {
             })
         })
         .catch( err =>{
-            alert(err);
+            console.log(err)
             commit('setLoading', false);
         })
 
 };
 
-export const unregisterUserForMeetup= ({commit}, payload) => {
-
+export const unregisterUserForMeetup = ({commit, getters}, payload) => {
+    commit('setLoading', true);
+    const user = getters.getUserOnPage;
+    const fbkey = user.registeredMeetups.find(meetup => meetup.id === payload);
+    firebase.database().ref('/users/' + user.id + /registration/).child(fbkey.fbKey).remove()
+        .then( () => {
+            commit('setLoading', false);
+            commit('unregisterUserForMeetup', payload)
+        })
+        .catch( err => {
+            console.log(err);
+            commit('setLoading', false);
+        })
 };
+
 
 export const loadMeetups = ({commit}) => {
     commit('setLoading', true);
@@ -116,7 +127,9 @@ export const signUserUp = ({commit}, payload) => {
                 commit('setLoading', false);
                 const newUser = {
                     id: user.user.uid,
-                    registeredMeetups: []
+                    registeredMeetups: [],
+                    fbKeys: []
+
                 }
                 commit('setUser', newUser);
             }
