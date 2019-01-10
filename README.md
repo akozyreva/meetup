@@ -1,5 +1,14 @@
 # meetup
 
+## Demo
+https://akozyreva.github.io/meetup
+
+## Description
+Stack technologies: Vue.js, Vuetify, Firebase on backend
+This is a simple project, which I've created, watching this vdieo-course
+
+https://www.youtube.com/playlist?list=PL55RiY5tL51qxUbODJG9cgrsVd7ZHbPrt
+
 ## Project setup
 ```
 npm install
@@ -15,15 +24,12 @@ npm run serve
 npm run build
 ```
 
-### Run your tests
+### Deploy on gh-pages
 ```
-npm run test
+npm run deploy
 ```
 
 ### Lints and fixes files
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
