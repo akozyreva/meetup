@@ -39,6 +39,9 @@
         name: "RegisterDialog",
         computed: {
             userIsRegistered () {
+                if(this.$store.getters.getUserOnPage === null) {
+                    return false;
+                }
                 return this.$store.getters.getUserOnPage.registeredMeetups.findIndex( meetup => {
                     return meetup.id === this.meetupId
                 }) >= 0
@@ -46,11 +49,18 @@
         },
         methods: {
             onAgree() {
-                if(!this.userIsRegistered) {
-                    this.$store.dispatch('registerUserForMeetup', this.meetupId);
+                if(this.$store.getters.getUserOnPage === null) {
+                    this.registerDialog = false
+                    this.$router.push('/signup')
+                    return
                 } else {
-                    this.$store.dispatch('unregisterUserForMeetup', this.meetupId);
+                    if(!this.userIsRegistered) {
+                        this.$store.dispatch('registerUserForMeetup', this.meetupId);
+                    } else {
+                        this.$store.dispatch('unregisterUserForMeetup', this.meetupId);
+                    }
                 }
+
 
             }
         }

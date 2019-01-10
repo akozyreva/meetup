@@ -25,7 +25,7 @@
                     <v-card-actions>
                         <!-- add space in order to put btn right -->
                         <v-spacer></v-spacer>
-                       <app-register-dialog :meetupId="id"></app-register-dialog>
+                       <app-register-dialog :meetupId="id" v-show="!userIsCreator"></app-register-dialog>
                     </v-card-actions>
                 </v-card>
             </v-flex>
@@ -43,9 +43,6 @@
             ...mapGetters([
                 'getLoadedOneMeetup'
             ]),
-            userIsAuthenticated() {
-                return this.$store.getters.getUserOnPage !== null && this.$store.getters.getUserOnPage !== undefined
-            },
             userIsCreator () {
                 if (this.$store.getters.getUserOnPage === null || this.$store.getters.getUserOnPage === undefined) {
                     return false;

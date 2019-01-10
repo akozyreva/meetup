@@ -164,6 +164,27 @@ export const signUserIn = ({commit}, payload) => {
 export const autoSignIn = ({commit}, payload) => {
     commit('setUser', {id: payload.uid, registeredMeetups: []})
 };
+
+export const fetchUserData = ({commit,getters}) => {
+    commit('setLoading', true);
+    firebase.database().ref('/users/' + getters.getUserOnPage.id + /registration/).once('value')
+        .then( data => {
+            const values = data.val();
+            // values look like {-LVqzMRvCJPBpaMa-U_J: "-LViD-1H7TZKNxZojLaN"}
+            let registeredMeetups = [];
+            Object.keys(values).forEach( key => {
+                registeredMeetups.push({
+                    fbKey: key,
+                    id: values[key]
+                });
+            });
+            commit('setUser', {id: getters.getUserOnPage.id, registeredMeetups})
+        })
+        .catch( err => {
+            alert(err);
+        })
+};
+
 export const logout = ({commit}) => {
     firebase.auth().signOut();
     commit('setUser', null);
