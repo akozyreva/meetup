@@ -4,7 +4,7 @@
 https://akozyreva.github.io/meetup
 
 ## Description
-Stack technologies: Vue.js, Vuetify, Firebase on backend
+Stack technologies: Vue.js (vuex, router), Vuetify, Firebase on backend.
 This is a simple project, which I've created, watching this vdieo-course
 
 https://www.youtube.com/playlist?list=PL55RiY5tL51qxUbODJG9cgrsVd7ZHbPrt
